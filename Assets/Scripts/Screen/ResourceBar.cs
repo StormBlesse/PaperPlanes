@@ -1,14 +1,14 @@
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ResourceBar : MonoBehaviour 
 {
-    private const int maxResources;
+    private static int maxResources;
     private static int currentResources;
-    private const int regenerationSpeed;
-    private const double windScale;
+    private static int regenerationSpeed;
+    private static double windScale;
 
     void Start()
     {
@@ -16,41 +16,81 @@ public class ResourceBar : MonoBehaviour
         currentResources = 100;
         regenerationSpeed = 1;
         windScale = 0.5;
+
+        InvokeRepeating("regeneration", 1f, 1f);  // run void regeneration() every 1s after 1s delay
     }
 
-    void Update()
+    // checks that currentResources are within limits and updates UI
+    void updateUI()
     {
-        // regenerate resource bar every 1 sec
-        currentResources += regenerationSpeed;
+        // checks that 0 < currentResources < maxResources
+        currentResources = Math.Max(currentResources, 0);
         currentResources = Math.Min(currentResources, maxResources);
 
-        // update visuals of resource bar
+        // update UI
     }
 
+    // regenerate resource bar by regenerationSpeed every 1 sec
+    void regeneration()
+    {
+        currentResources += regenerationSpeed;
+        updateUI();
+    }
+
+    // reduce resource bar when collision happens
     void collision(int reduction)
     {
-        // reduce resource bar when collision happens
         currentResources -= reduction;
-        currentResources = Math.Max(currentResources, 0);
-
-        // update visuals of resource bar
+        updateUI();
     }
 
+    // increase resource bar when items are used
     void addResource(int addition)
     {
-        // increase resource bar when items are used
         currentResources += addition;
-        currentResources = Math.Min(currentResources, maxResources);
-        
-        // update visuals of resource bar
+        updateUI();
     }
 
+    // reduce resource bar when collision happens
     void windResourceUsage(double windLength)
     {
-        // reduce resource bar when collision happens
         currentResources -= (int)(windLength * windScale);
-        currentResources = Math.Max(currentResources, 0);
+        updateUI();
+    }
 
-        // update visuals of resource bar
+    // sets resource bar capacity
+    void setCapacity(int maxResources)
+    {
+        this.maxResources = maxResources;
+    }
+
+    // increase resource bar capacity
+    void increaseCapacity(int increase)
+    {
+        maxResources += increase;
+    }
+    
+    // decrease resource bar capacity
+    void decreaseCapacity(int decrease)
+    {
+        maxResources -= decrease;
+    }
+
+    // set resource bar regeneration speed
+    void setRegenerationSpeed(int regenerationSpeed)
+    {
+        this.regenerationSpeed = regenerationSpeed;
+    }
+
+    // increase resource bar regeneration speed
+    void increaseRegenerationSpeed(int increase)
+    {
+        regenerationSpeed += increase;
+    }
+
+    // decrease resource bar regeneration speed
+    void decreaseRegenerationSpeed(int decrease)
+    {
+        regenerationSpeed -= decrease;
     }
 }
