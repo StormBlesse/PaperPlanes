@@ -18,6 +18,8 @@ public class DrawStraightLine : MonoBehaviour
     public double windLength;
     public ResourceBar resourceBar;
 
+    public float strength;
+    
     void Start()
     {
         resourceBar = this.GetComponent<ResourceBar>;
@@ -69,7 +71,9 @@ public class DrawStraightLine : MonoBehaviour
     void addColliderToLine()
     {
         GameObject wind = new GameObject("WindCollider");
-        wind.AddComponent<WindCurrent>();
+        WindCurrent windcurrent = wind.AddComponent<WindCurrent>();
+
+        windcurrent.force = (mousePos - startMousePos).magnitude * strength;
 
         BoxCollider2D col = wind.AddComponent<BoxCollider2D> ();
         col.isTrigger = true;
