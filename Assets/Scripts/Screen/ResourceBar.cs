@@ -13,11 +13,12 @@ public class ResourceBar : MonoBehaviour
     void Start()
     {
         maxResources = 100;
-        currentResources = 100;
+        currentResources = maxResources;
         regenerationSpeed = 1;
         windScale = 0.5;
 
-        InvokeRepeating("regeneration", 1f, 1f);  // run void regeneration() every 1s after 1s delay
+        // run void regeneration() every 1s after 1s delay
+        InvokeRepeating("regeneration", 1f, 1f);
     }
 
     // checks that currentResources are within limits and updates UI
@@ -59,9 +60,9 @@ public class ResourceBar : MonoBehaviour
     }
 
     // sets resource bar capacity
-    void setCapacity(int maxResources)
+    void setCapacity(int capacity)
     {
-        this.maxResources = maxResources;
+        maxResources = capacity;
     }
 
     // increase resource bar capacity
@@ -77,9 +78,9 @@ public class ResourceBar : MonoBehaviour
     }
 
     // set resource bar regeneration speed
-    void setRegenerationSpeed(int regenerationSpeed)
+    void setRegenerationSpeed(int regeneration)
     {
-        this.regenerationSpeed = regenerationSpeed;
+        regenerationSpeed = regeneration;
     }
 
     // increase resource bar regeneration speed
