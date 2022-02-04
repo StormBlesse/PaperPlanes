@@ -22,7 +22,7 @@ public class DrawStraightLine : MonoBehaviour
     
     void Start()
     {
-        // resourceBar = this.GetComponent<ResourceBar>;
+        strength = 0.2f;
     }
 
     // Update is called once per frame
