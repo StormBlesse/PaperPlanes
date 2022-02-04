@@ -60,9 +60,9 @@ public class ResourceBar : MonoBehaviour
     }
 
     // sets resource bar capacity
-    void setCapacity(int capacity)
+    void setCapacity(int maxResources)
     {
-        maxResources = capacity;
+        ResourceBar.maxResources = maxResources;
     }
 
     // increase resource bar capacity
@@ -78,9 +78,9 @@ public class ResourceBar : MonoBehaviour
     }
 
     // set resource bar regeneration speed
-    void setRegenerationSpeed(int regeneration)
+    void setRegenerationSpeed(int regenerationSpeed)
     {
-        regenerationSpeed = regeneration;
+        ResourceBar.regenerationSpeed = regenerationSpeed;
     }
 
     // increase resource bar regeneration speed

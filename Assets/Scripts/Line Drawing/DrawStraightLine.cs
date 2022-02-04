@@ -22,7 +22,7 @@ public class DrawStraightLine : MonoBehaviour
     
     void Start()
     {
-        resourceBar = this.GetComponent<ResourceBar>;
+        // resourceBar = this.GetComponent<ResourceBar>;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class DrawStraightLine : MonoBehaviour
             line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
 
             windLength = Vector3.Distance(line.GetPosition(0), line.GetPosition(1));
-            resourceBar.windResourceUsage(windLength);
+            // resourceBar.windResourceUsage(windLength);
 
             addColliderToLine();
 
