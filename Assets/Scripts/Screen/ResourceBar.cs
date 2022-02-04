@@ -1,86 +1,99 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class ResourceBar : MonoBehaviour 
 {
-    private static int maxResources;
-    private static int currentResources;
-    private static int regenerationSpeed;
-    private static double windScale;
+    private static float maxResources = 100;
+    private static float currentResources;
+    private static float regenerationSpeed;
+    private static float windScale;
 
+    public Slider resourceBar;
+
+    public static ResourceBar instance;
+
+    private void Awake() 
+    {
+        instance = this;
+    }
+    
     void Start()
     {
-        maxResources = 100;
+
         currentResources = maxResources;
-        regenerationSpeed = 1;
-        windScale = 0.5;
+        resourceBar.maxValue = maxResources;
+        resourceBar.value = maxResources;
+        regenerationSpeed = 1f;
+
+        windScale = 0.1f;
 
         // run void regeneration() every 1s after 1s delay
         InvokeRepeating("regeneration", 1f, 1f);
-    }
-
-    // checks that currentResources are within limits and updates UI
-    void updateUI()
-    {
-        // checks that 0 < currentResources < maxResources
-        currentResources = Math.Max(currentResources, 0);
-        currentResources = Math.Min(currentResources, maxResources);
-
-        // update UI
     }
 
     // regenerate resource bar by regenerationSpeed every 1 sec
     void regeneration()
     {
         currentResources += regenerationSpeed;
-        updateUI();
+        currentResources = Math.Min(currentResources, maxResources);
+        resourceBar.value = currentResources;
     }
 
     // reduce resource bar when collision happens
     void collision(int reduction)
     {
         currentResources -= reduction;
-        updateUI();
+        currentResources = Math.Max(currentResources, 0);
+        resourceBar.value = currentResources;
     }
 
     // increase resource bar when items are used
     void addResource(int addition)
     {
         currentResources += addition;
-        updateUI();
+        currentResources = Math.Min(currentResources, maxResources);
+        resourceBar.value = currentResources;
     }
 
     // reduce resource bar when collision happens
-    void windResourceUsage(double windLength)
+    public void windResourceUsage(float windLength)
     {
-        currentResources -= (int)(windLength * windScale);
-        updateUI();
+        float amount = windLength * windScale;
+        if (currentResources - amount >= 0)
+        {
+            currentResources -= amount;
+            resourceBar.value = currentResources;
+        }
     }
 
     // sets resource bar capacity
-    void setCapacity(int maxResources)
+    void setCapacity(int capacity)
     {
-        ResourceBar.maxResources = maxResources;
+        maxResources = capacity;
+        resourceBar.maxValue = maxResources;
     }
 
     // increase resource bar capacity
     void increaseCapacity(int increase)
     {
         maxResources += increase;
+        resourceBar.maxValue = maxResources;
     }
     
     // decrease resource bar capacity
     void decreaseCapacity(int decrease)
     {
         maxResources -= decrease;
+        resourceBar.maxValue = maxResources;
     }
 
     // set resource bar regeneration speed
-    void setRegenerationSpeed(int regenerationSpeed)
+    void setRegenerationSpeed(int regeneration)
     {
-        ResourceBar.regenerationSpeed = regenerationSpeed;
+        regenerationSpeed = regeneration;
     }
 
     // increase resource bar regeneration speed

@@ -14,8 +14,7 @@ public class DrawStraightLine : MonoBehaviour
 
     public Vector3 endMousePos;
     public List<Vector2> positions;
-
-    public double windLength;
+    public float windLength;
     public ResourceBar resourceBar;
 
     public float strength;
@@ -50,11 +49,13 @@ public class DrawStraightLine : MonoBehaviour
             line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
 
             windLength = Vector3.Distance(line.GetPosition(0), line.GetPosition(1));
-            // resourceBar.windResourceUsage(windLength);
+            Debug.Log(windLength);
+            
+            ResourceBar.instance.windResourceUsage(windLength);
 
             addColliderToLine();
 
-        }
+        }   
 
 
     }
