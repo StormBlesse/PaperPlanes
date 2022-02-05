@@ -29,7 +29,7 @@ public class ResourceBar : MonoBehaviour
         regenerationSpeed = 1f;
 
         windScale = 0.1f;
-
+        
         // run void regeneration() every 1s after 1s delay
         InvokeRepeating("regeneration", 1f, 1f);
     }
@@ -43,7 +43,7 @@ public class ResourceBar : MonoBehaviour
     }
 
     // reduce resource bar when collision happens
-    void collision(int reduction)
+    public void collision(int reduction)
     {
         currentResources -= reduction;
         currentResources = Math.Max(currentResources, 0);
