@@ -14,8 +14,7 @@ public class DrawStraightLine : MonoBehaviour
 
     public Vector3 endMousePos;
     public List<Vector2> positions;
-
-    public double windLength;
+    public float windLength;
     public ResourceBar resourceBar;
 
     public float strength;
