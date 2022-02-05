@@ -14,7 +14,8 @@ public class DrawStraightLine : MonoBehaviour
 
     public Vector3 endMousePos;
     public List<Vector2> positions;
-    public float windLength;
+
+    public double windLength;
     public ResourceBar resourceBar;
     public PauseMenu pause;
 
@@ -85,6 +86,22 @@ public class DrawStraightLine : MonoBehaviour
 
             }
         }
+        if(Input.GetMouseButtonUp(0)) 
+        {
+            
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+            line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
+            line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
+
+            windLength = Vector3.Distance(line.GetPosition(0), line.GetPosition(1));
+            // resourceBar.windResourceUsage(windLength);
+
+            addColliderToLine();
+
+        }
+
 
     }
 
