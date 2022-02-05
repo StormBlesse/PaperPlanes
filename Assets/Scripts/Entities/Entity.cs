@@ -26,11 +26,6 @@ public class Entity : MonoBehaviour
         windForce = force;
     }
 
-    public Vector2 getWindForce()
-    {
-        return windForce;
-    }
-
     //Brings wind force back to 0
     protected void windForceDecay() {
         if (tick > 60) {

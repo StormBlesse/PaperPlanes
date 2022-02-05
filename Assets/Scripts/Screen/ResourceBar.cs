@@ -42,7 +42,7 @@ public class ResourceBar : MonoBehaviour
     }
 
     // reduce resource bar when collision happens
-    public void collision(int reduction)
+    void collision(int reduction)
     {
         currentResources -= reduction;
         updateUI();
