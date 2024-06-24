@@ -18,6 +18,7 @@ public class DrawStraightLine : MonoBehaviour
     public ResourceBar resourceBar;
 
     public float strength;
+    
     void Start()
     {
         strength = 0.2f;
@@ -28,24 +29,27 @@ public class DrawStraightLine : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0)) 
         {
-            CreateLine();
-            startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Input.GetMouseButtonDown(0))
+            {
+                CreateLine();
+                startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        }
-        if(Input.GetMouseButton(0))
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
-            line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
-        }
-        if(Input.GetMouseButtonUp(0)) 
-        {
-            
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+            if (Input.GetMouseButton(0))
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
+                line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                line.material.SetColor("_Color", new Color(1f, 1f, 1f, 1f));
+
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-            line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
-            line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
+                line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
+                line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
 
             windLength = Vector3.Distance(line.GetPosition(0), line.GetPosition(1));
             Debug.Log(windLength);
